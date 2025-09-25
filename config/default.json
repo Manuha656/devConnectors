@@ -1,3 +1,6 @@
 {
-    "mongoURI": "mongodb+srv://enjamurimanuha_db_user:71727172@devconnector.fcgk6hi.mongodb.net/?retryWrites=true&w=majority&appName=DevConnector"
+    "mongoURI": "mongodb+srv://enjamurimanuha_db_user:71727172@devconnector.fcgk6hi.mongodb.net/?retryWrites=true&w=majority&appName=DevConnector",
+    "jwtSecret":"mysecrettoken",
+    "githubClientId":"Ov23liZCjU8Y3a4GIoZS",
+    "githubSecret":"c65a2e5d36fffe44f7570503ac71448f77940be5"
 }
