@@ -28,9 +28,9 @@ router.post('/',[
     check('email','Please include a valid email.').isEmail(),
     check('password','Password is required.').exists()    
 ],async (req,res)=>{
-    const err = validationResult(req)
-    if(!err.isEmpty()){
-        return res.status(400).json({err:err.array()})
+    const errors = validationResult(req)
+    if(!errors.isEmpty()){
+        return res.status(400).json({errors:errors.array()})
     }
     
     const {email, password} = req.body
@@ -39,12 +39,12 @@ router.post('/',[
         //See if user enters correct email and pwd
         let user = await User.findOne({email})
         if(!user){
-            return res.status(400).json({error: [{msg: 'Invalid Credentials'}]})
+            return res.status(400).json({errors: [{msg: 'Invalid Credentials'}]})
         }
 
         const isMatch = await bcrypt.compare(password,user.password)    
         if(!isMatch){
-            return res.status(400).json({error: [{msg: 'Invalid Credentials'}]})
+            return res.status(400).json({errors: [{msg: 'Invalid Credentials'}]})
         }
 
         //Return jsonwebtoken after successful login

@@ -15,9 +15,9 @@ router.post('/',[
     check('email','Please include a valid email.').isEmail(),
     check('password','Please enter a password with 6 or more characters.').isLength({min:6})    
 ],async (req,res)=>{
-    const err = validationResult(req)
-    if(!err.isEmpty()){
-        return res.status(400).json({err:err.array()})
+    const errors = validationResult(req)
+    if(!errors.isEmpty()){
+        return res.status(400).json({errors:errors.array()})
     }
     
     const {name, email, password} = req.body
@@ -26,7 +26,7 @@ router.post('/',[
         //See if user exist
         let user = await User.findOne({email})
         if(user){
-            return res.status(400).json({error: [{msg: 'User already exists'}]})
+            return res.status(400).json({errors: [{msg: 'User already exists'}]})
         }
 
         //Get users gravatar
