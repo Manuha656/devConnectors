@@ -36,7 +36,7 @@ router.post('/',[auth,[
 ]],async (req,res)=>{
     const err = validationResult(req)
     if(!err.isEmpty()){
-        return res.status(400).json({err:err.array()})
+        return res.status(400).json({errors:err.array()})
     }
 
     const {
@@ -156,7 +156,7 @@ router.put('/experience',[auth,[
 ]], async (req,res)=>{
     const err = validationResult(req)
     if(!err.isEmpty())
-        return res.status(400).json({ err:err.array() })
+        return res.status(400).json({ errors:err.array() })
 
     const {
         title,
@@ -216,7 +216,7 @@ router.put('/education',[auth,[
 ]], async (req,res)=>{
     const err = validationResult(req)
     if(!err.isEmpty())
-        return res.status(400).json({ err:err.array() })
+        return res.status(400).json({ errors:err.array() })
 
     const {
         school,

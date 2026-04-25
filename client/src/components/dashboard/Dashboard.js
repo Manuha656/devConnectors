@@ -2,13 +2,25 @@ import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getCurrentProfile } from '../../actions/profile'
+import Spinner from '../layout/Spinner'
+import { Link } from 'react-router-dom'
+import { DashboardActions } from './DashboardActions'
 
-const Dashboard = ({getCurrentProfile, auth, profile}) => {
+const Dashboard = ({getCurrentProfile, auth: { user }, profile:{ profile, loading }}) => {
   useEffect(()=>{
     getCurrentProfile()
   },[])
   return (
-    <div>Dashboard</div>
+    loading && profile == null ? <Spinner/> : <>
+      <h1 className='large text-primary'>Dashboard</h1>
+      <p><i className='fas fa-user'>Welcome {user && user.name}</i></p>
+      { profile!== null? 
+      <><DashboardActions/></>: 
+      <>
+        <p>You have not yet set up a profile. Please add some info </p>
+        <Link to='/create-profile' className="btn btn-primary my-1">Create Profile</Link>
+      </> }
+    </>
   )
 }
 
