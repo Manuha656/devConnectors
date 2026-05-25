@@ -9,21 +9,21 @@ const ProfileAbout = ({
   }
 }) => {
   return (
-    <div className="profile-about bg-light p-2">
+    <div className="portfolio-card portfolio-about">
       {bio && (
         <Fragment>
-          <h2 className="text-primary">
-            {name.trim().split(' ')[0]}'s Bio
+          <h2 className="portfolio-title">
+            <i className="fas fa-user-astronaut text-primary"></i> About {name.trim().split(' ')[0]}
           </h2>
-          <p>{bio}</p>
-          <div className="line" />
+          <p className="portfolio-bio">{bio}</p>
+          <div className="portfolio-divider" />
         </Fragment>
       )}
 
-      <h2 className="text-primary">Skill Set</h2>
-      <div className="skills">
+      <h2 className="portfolio-title"><i className="fas fa-magic text-primary"></i> Skill Set</h2>
+      <div className="portfolio-skills">
         {skills.map((skill, index) => (
-          <div key={index} className="p-1">
+          <div key={index} className="portfolio-skill-pill">
             <i className="fa fa-check" /> {skill}
           </div>
         ))}

@@ -6,38 +6,37 @@ import { deleteEducation } from '../../actions/profile'
 
 const Education = ({ education, deleteEducation }) => {
     const educations = education.map(edu => (
-        <tr key={edu._id}>
-            <td>{edu.school}</td>
-            <td className='hide-sm'>{edu.degree}</td>
-            <td>
+        <div key={edu._id} className="dashboard-card">
+            <div className="card-header">
+              <h3 className="text-dark">{edu.school}</h3>
+              <button onClick={() => deleteEducation(edu._id)} className='btn-icon btn-danger-soft' title="Delete Education">
+                <i className="fas fa-trash"></i>
+              </button>
+            </div>
+            <p className='card-subtitle'>{edu.degree}</p>
+            <p className="card-dates">
+                <i className="far fa-calendar-alt"></i>{' '}
                 <Moment format='YYYY/MM/DD'>{edu.from}</Moment> -{' '}
                 {edu.to === null ? (
-                'Now'
+                'Present'
                 ) : (
                 <Moment format='YYYY/MM/DD'>{edu.to}</Moment>
                 )}
-            </td>
-            <td>
-                <button onClick={() => deleteEducation(edu._id)} className='btn btn-danger'>Delete</button>
-            </td>
-        </tr>
+            </p>
+        </div>
     ));
 
   return (
-    <>
-    <h2 className='my-2'>Education Credentials</h2>
-      <table className='table'>
-        <thead>
-          <tr>
-            <th>School</th>
-            <th className='hide-sm'>Degree</th>
-            <th className='hide-sm'>Years</th>
-            <th />
-          </tr>
-        </thead>
-        <tbody>{educations}</tbody>
-      </table>
-    </>
+    <div className="dashboard-section">
+      <h2 className='section-title'>Education</h2>
+      {educations.length > 0 ? (
+        <div className="card-grid">
+          {educations}
+        </div>
+      ) : (
+        <p className="empty-state">No education credentials added yet.</p>
+      )}
+    </div>
   )
 }
 

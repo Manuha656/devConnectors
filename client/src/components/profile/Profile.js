@@ -20,43 +20,51 @@ const Profile = ({ getProfileById, profile: { profile, loading }, auth }) => {
   return  (
     <>
         {profile === null || loading ? ( <Spinner /> ) : (
-        <>
-            <Link to="/profiles" className="btn btn-light">
-            Back To Profiles
-            </Link>
-            {auth.isAuthenticated &&
-            auth.loading === false &&
-            auth.user._id === profile.user._id && (
-                <Link to="/edit-profile" className="btn btn-dark">
-                Edit Profile
-                </Link>
-            )}
-            <div className="profile-grid my-1">
+        <div className="portfolio-wrapper max-w-4xl">
+            <div className="portfolio-nav">
+              <Link to="/profiles" className="btn-back">
+                <i className="fas fa-arrow-left"></i> Back To Profiles
+              </Link>
+              {auth.isAuthenticated &&
+              auth.loading === false &&
+              auth.user._id === profile.user._id && (
+                  <Link to="/edit-profile" className="btn-edit-profile">
+                    <i className="fas fa-pencil-alt"></i> Edit Profile
+                  </Link>
+              )}
+            </div>
+
+            <div className="portfolio-grid">
                 <ProfileTop profile={profile}/>
                 <ProfileAbout profile={profile}/>
-                <div className='profile-exp bg-white p-2'>
-                  <h2 className='text-primary'>Experience</h2>
-
-                  {profile.experience.length > 0 ? (
-                    <>
-                      {profile.experience.map(experience => (
-                        <ProfileExperience key={experience._id} experience={experience} /> ))}
-                    </> ) : ( <h4>No experience credentials</h4> )}
-                </div>
                 
-                <div className='profile-edu bg-white p-2'>
-                  <h2 className='text-primary'>Education</h2>
-
-                  {profile.education.length > 0 ? (
-                    <>
-                      {profile.education.map(education => (
-                        <ProfileEducation key={education._id} education={education} /> ))}
-                    </> ) : ( <h4>No education credentials</h4> )}
+                <div className="portfolio-row">
+                  <div className='portfolio-card portfolio-timeline-container'>
+                    <h2 className='portfolio-title'><i className="fas fa-briefcase text-primary"></i> Experience</h2>
+                    <div className="portfolio-timeline">
+                      {profile.experience.length > 0 ? (
+                        <>
+                          {profile.experience.map(experience => (
+                            <ProfileExperience key={experience._id} experience={experience} /> ))}
+                        </> ) : ( <p className="empty-state">No experience credentials</p> )}
+                    </div>
+                  </div>
+                  
+                  <div className='portfolio-card portfolio-timeline-container'>
+                    <h2 className='portfolio-title'><i className="fas fa-graduation-cap text-primary"></i> Education</h2>
+                    <div className="portfolio-timeline">
+                      {profile.education.length > 0 ? (
+                        <>
+                          {profile.education.map(education => (
+                            <ProfileEducation key={education._id} education={education} /> ))}
+                        </> ) : ( <p className="empty-state">No education credentials</p> )}
+                    </div>
+                  </div>
                 </div>
 
                 { profile.githubusername && <ProfileGithub username={profile.githubusername} />}
             </div>
-        </>
+        </div>
         )}
     </>
     );

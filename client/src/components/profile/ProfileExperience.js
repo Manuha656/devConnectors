@@ -5,26 +5,22 @@ import Moment from 'react-moment';
 const ProfileExperience = ({
   experience: { company, title, location, current, to, from, description }
 }) => (
-  <div>
-    <h3 className="text-dark">{company}</h3>
-
-    <p>
-      <Moment format="YYYY/MM/DD">{from}</Moment> -{' '}
-      {!to ? 'Now' : <Moment format="YYYY/MM/DD">{to}</Moment>}
-    </p>
-
-    <p>
-      <strong>Position: </strong> {title}
-    </p>
-
-    <p>
-      <strong>Description: </strong> {description}
-    </p>
+  <div className="portfolio-timeline-item">
+    <div className="timeline-marker"></div>
+    <div className="timeline-content">
+      <h3 className="timeline-title">{title}</h3>
+      <p className="timeline-company">{company} {location && <span>• {location}</span>}</p>
+      <p className="timeline-date">
+        <Moment format="MMM YYYY">{from}</Moment> -{' '}
+        {!to ? 'Present' : <Moment format="MMM YYYY">{to}</Moment>}
+      </p>
+      {description && <p className="timeline-description">{description}</p>}
+    </div>
   </div>
 )
 
 ProfileExperience.propTypes = {
-  experience: PropTypes.array.isRequired
+  experience: PropTypes.object.isRequired
 }
 
 export default ProfileExperience;

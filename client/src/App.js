@@ -1,7 +1,8 @@
 import './App.css';
 import Navbar from './components/layout/Navbar';
+import Sidebar from './components/layout/Sidebar';
 import Landing from './components/layout/Landing';
-import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Alert from './components/layout/Alert';
@@ -23,42 +24,52 @@ import { loadUser } from './actions/auth';
 import { useEffect } from 'react';
 import setAuthToken from './utils/setAuthToken';
 
-if(localStorage.token){
+if (localStorage.token) {
   setAuthToken(localStorage.token)
 }
 
-const App = ()=> {
-  
-  useEffect(()=>{   
+const App = () => {
+
+  useEffect(() => {
     store.dispatch(loadUser())
-  },[])
+  }, [])
 
   return (
-  <Provider store={store}>
-    <Router>
-      <>
-        <Navbar/>
-        <section className='container'>
-          <Alert/>
-            <Routes>
-              <Route path='/' element={<Landing />} />
-              <Route path='/register' element={<Register />} />
-              <Route path='/login' element={<Login />} />
-              <Route path='/profiles' element={<Profiles />} />
-              <Route path='/profile/:id' element={<Profile />} />
-              <Route path='/dashboard' element={<PrivateRoute component={Dashboard} />} />
-              <Route path='/create-profile' element={<PrivateRoute component={CreateProfile} />} />
-              <Route path='/edit-profile' element={<PrivateRoute component={EditProfile} />} />
-              <Route path='/add-experience' element={<PrivateRoute component={AddExperience} />} />
-              <Route path='/add-education' element={<PrivateRoute component={AddEducation} />} />
-              <Route path='/posts' element={<PrivateRoute component={Posts} />} />
-              <Route path='/post/:id' element={<PrivateRoute component={Post} />} />
-              <Route path='*' element={<NotFound />} />
-            </Routes>
-        </section>
-      </>
-    </Router>
-  </Provider>
-)}
+    <Provider store={store}>
+      <Router>
+        <>
+          <Navbar />
+          <Routes>
+            <Route path='/' element={<Landing />} />
+            <Route path='*' element={
+              <div className="app-layout">
+                <Sidebar />
+                <main className="main-content">
+                  <section className='container'>
+                    <Alert />
+                    <Routes>
+                      <Route path='/register' element={<Register />} />
+                      <Route path='/login' element={<Login />} />
+                      <Route path='/profiles' element={<Profiles />} />
+                      <Route path='/profile/:id' element={<Profile />} />
+                      <Route path='/dashboard' element={<PrivateRoute component={Dashboard} />} />
+                      <Route path='/create-profile' element={<PrivateRoute component={CreateProfile} />} />
+                      <Route path='/edit-profile' element={<PrivateRoute component={EditProfile} />} />
+                      <Route path='/add-experience' element={<PrivateRoute component={AddExperience} />} />
+                      <Route path='/add-education' element={<PrivateRoute component={AddEducation} />} />
+                      <Route path='/posts' element={<PrivateRoute component={Posts} />} />
+                      <Route path='/post/:id' element={<PrivateRoute component={Post} />} />
+                      <Route path='*' element={<NotFound />} />
+                    </Routes>
+                  </section>
+                </main>
+              </div>
+            } />
+          </Routes>
+        </>
+      </Router>
+    </Provider>
+  )
+}
 
 export default App;

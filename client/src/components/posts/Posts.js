@@ -13,19 +13,23 @@ const Posts = ({ getPosts, post: {posts, loading }}) => {
   return loading ? (
     <Spinner />
     ) : (
-    <>
-        <h1 className="large text-primary">Posts</h1>
-        <p className="lead">
-        <i className="fas fa-user"></i> Welcome to the community
-        </p>
-
-        <PostForm/>
-        <div className="posts">
-        {posts.map(post => (
-            <PostItem key={post._id} post={post} />
-        ))}
+    <div className="page-wrapper max-w-3xl">
+        <div className="page-header">
+          <h1 className="x-large text-dark">Community</h1>
+          <p className="lead">
+            <i className="fas fa-comment-dots text-primary"></i> Engage in discussions with developers
+          </p>
         </div>
-    </>
+
+        <div className="feed-container">
+          <PostForm/>
+          <div className="posts-feed">
+            {posts.map(post => (
+                <PostItem key={post._id} post={post} />
+            ))}
+          </div>
+        </div>
+    </div>
     );
 };
 

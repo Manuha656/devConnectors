@@ -3,23 +3,12 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { logout } from '../../actions/auth'
-import auth from '../../reducers/auth'
 
 const Navbar = ({ auth:{ isAuthenticated,loading },logout }) => {
   const authLinks = (
-    <ul>
+    <ul className="navbar-nav right-nav">
       <li>
-        <Link to="/profiles">Developers</Link>
-      </li>
-      <li>
-        <Link to="/posts">Posts</Link>
-      </li>
-      <li><Link to="/dashboard">
-        <i className='fas fa-user'></i>{' '}
-            <span className='hide-sm'>Dashboard</span>
-        </Link></li>
-      <li>
-          <a onClick={logout} href="#!">
+          <a onClick={logout} href="#!" className="btn-logout">
             <i className='fas fa-sign-out-alt'></i>{' '}
             <span className='hide-sm'>Logout</span>
           </a>
@@ -28,18 +17,19 @@ const Navbar = ({ auth:{ isAuthenticated,loading },logout }) => {
   )
 
   const guestLinks = (
-    <ul>
+    <ul className="navbar-nav right-nav">
       <li>
         <Link to="/profiles">Developers</Link>
       </li>
-      <li><Link to="/register">Register</Link></li>
-      <li><Link to="/login">Login</Link></li>
+      <li><Link to="/register" className="btn btn-primary nav-btn">Sign Up</Link></li>
+      <li><Link to="/login" className="nav-login">Login</Link></li>
     </ul>
   )
+  
   return (
-    <nav className="navbar bg-dark">
+    <nav className="navbar bg-dark top-header">
       <h1>
-        <Link to="/"><i className="fas fa-code"></i> DevConnector</Link>
+        <Link to="/" className="brand-logo"><i className="fas fa-laptop-code text-primary"></i> DevConnector</Link>
       </h1>
       { !loading && (<>{ isAuthenticated? authLinks: guestLinks }</>)}
     </nav>

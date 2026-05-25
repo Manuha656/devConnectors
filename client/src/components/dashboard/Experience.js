@@ -6,38 +6,37 @@ import { deleteExperience } from '../../actions/profile'
 
 const Experience = ({ experience, deleteExperience }) => {
     const experiences = experience.map(exp => (
-        <tr key={exp._id}>
-            <td>{exp.company}</td>
-            <td className='hide-sm'>{exp.title}</td>
-            <td>
+        <div key={exp._id} className="dashboard-card">
+            <div className="card-header">
+              <h3 className="text-dark">{exp.company}</h3>
+              <button onClick={()=> deleteExperience(exp._id)} className='btn-icon btn-danger-soft' title="Delete Experience">
+                <i className="fas fa-trash"></i>
+              </button>
+            </div>
+            <p className='card-subtitle'>{exp.title}</p>
+            <p className="card-dates">
+                <i className="far fa-calendar-alt"></i>{' '}
                 <Moment format='YYYY/MM/DD'>{exp.from}</Moment> -{' '}
                 {exp.to === null ? (
-                'Now'
+                'Present'
                 ) : (
                 <Moment format='YYYY/MM/DD'>{exp.to}</Moment>
                 )}
-            </td>
-            <td>
-                <button onClick={()=> deleteExperience(exp._id)} className='btn btn-danger'>Delete</button>
-            </td>
-        </tr>
+            </p>
+        </div>
     ));
 
   return (
-    <>
-    <h2 className='my-2'>Experience Credentials</h2>
-      <table className='table'>
-        <thead>
-          <tr>
-            <th>Company</th>
-            <th className='hide-sm'>Title</th>
-            <th className='hide-sm'>Years</th>
-            <th />
-          </tr>
-        </thead>
-        <tbody>{experiences}</tbody>
-      </table>
-    </>
+    <div className="dashboard-section">
+      <h2 className='section-title'>Experience</h2>
+      {experiences.length > 0 ? (
+        <div className="card-grid">
+          {experiences}
+        </div>
+      ) : (
+        <p className="empty-state">No experience credentials added yet.</p>
+      )}
+    </div>
   )
 }
 

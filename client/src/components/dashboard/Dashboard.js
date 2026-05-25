@@ -15,7 +15,7 @@ const Dashboard = ({getCurrentProfile, auth: { user }, profile:{ profile, loadin
   return (
     loading && profile == null ? <Spinner/> : <>
       <h1 className='large text-primary'>Dashboard</h1>
-      <p><i className='fas fa-user'>Welcome {user && user.name}</i></p>
+      <p className='lead'><i className='fas fa-user'></i> Welcome {user && user.name}</p>
       { profile!== null? 
       <>
         <DashboardActions/>
