@@ -1,7 +1,6 @@
 import axios from "axios";
 import { setAlert } from "./alert";
 import { ACCOUNT_DELETED, CLEAR_PROFILE, GET_PROFILE, PROFILE_ERROR, UPDATE_PROFILE, GET_PROFILES, GET_REPOS } from "./types";
-import { header } from "express-validator";
 
 const API = process.env.REACT_APP_API;
 
