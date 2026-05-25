@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Moment from 'react-moment';
+import moment from 'moment';
 
 const ProfileEducation = ({
   education: { school, degree, fieldofstudy, current, to, from, description }
@@ -11,8 +11,8 @@ const ProfileEducation = ({
       <h3 className="timeline-title">{school}</h3>
       <p className="timeline-company">{degree}, {fieldofstudy}</p>
       <p className="timeline-date">
-        <Moment format="MMM YYYY">{from}</Moment> -{' '}
-        {!to ? 'Present' : <Moment format="MMM YYYY">{to}</Moment>}
+        <span>{moment(from).format('MMM YYYY')}</span> -{' '}
+        {!to ? 'Present' : <span>{moment(to).format('MMM YYYY')}</span>}
       </p>
       {description && <p className="timeline-description">{description}</p>}
     </div>

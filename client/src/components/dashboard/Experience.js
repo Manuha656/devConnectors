@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import Moment from 'react-moment'
+import moment from 'moment'
 import { deleteExperience } from '../../actions/profile'
 
 const Experience = ({ experience, deleteExperience }) => {
@@ -16,11 +16,11 @@ const Experience = ({ experience, deleteExperience }) => {
             <p className='card-subtitle'>{exp.title}</p>
             <p className="card-dates">
                 <i className="far fa-calendar-alt"></i>{' '}
-                <Moment format='YYYY/MM/DD'>{exp.from}</Moment> -{' '}
+                {moment(exp.from).format('YYYY/MM/DD')} -{' '}
                 {exp.to === null ? (
                 'Present'
                 ) : (
-                <Moment format='YYYY/MM/DD'>{exp.to}</Moment>
+                moment(exp.to).format('YYYY/MM/DD')
                 )}
             </p>
         </div>

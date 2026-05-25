@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import Moment from 'react-moment';
+import moment from 'moment';
 import { connect } from 'react-redux';
 import { addLike, removeLike, deletePost } from '../../actions/post';
 
@@ -71,7 +71,7 @@ const PostItem = ({
                 {name}
               </Link>
               <span className="feed-post-date">
-                <Moment format='MMM D, YYYY'>{date}</Moment>
+                {moment(date).format('MMM D, YYYY')}
               </span>
               { !auth.loading && user === auth.user._id && (
                   <button onClick={e => deletePost(_id)} type="button" className="btn-icon btn-danger-soft feed-delete-btn" title="Delete Post">
