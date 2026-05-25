@@ -3,6 +3,8 @@ import { setAlert } from "./alert";
 import { ACCOUNT_DELETED, CLEAR_PROFILE, GET_PROFILE, PROFILE_ERROR, UPDATE_PROFILE, GET_PROFILES, GET_REPOS } from "./types";
 import { header } from "express-validator";
 
+const API = process.env.REACT_APP_API;
+
 //Get current users profile
 export const getCurrentProfile = () => async dispatch => {
     try {
@@ -11,7 +13,7 @@ export const getCurrentProfile = () => async dispatch => {
             'x-auth-token': localStorage.getItem('token')
         }
         };
-        const res = await axios.get('/api/profile/me', config);
+        const res = await axios.get(`${API}/api/profile/me`, config);
         dispatch({
             type: GET_PROFILE,
             payload: res.data
@@ -29,7 +31,7 @@ export const getProfiles = () => async dispatch => {
     dispatch({ type: CLEAR_PROFILE })
 
     try {
-        const res = await axios.get('/api/profile')
+        const res = await axios.get(`${API}/api/profile`)
         dispatch({
             type: GET_PROFILES,
             payload: res.data
@@ -47,7 +49,7 @@ export const getProfileById = userId => async dispatch => {
     dispatch({ type: CLEAR_PROFILE })
 
     try {
-        const res = await axios.get(`/api/profile/user/${userId}`)
+        const res = await axios.get(`${API}/api/profile/user/${userId}`)
         dispatch({
             type: GET_PROFILE,
             payload: res.data
@@ -63,7 +65,7 @@ export const getProfileById = userId => async dispatch => {
 //Get Github repos
 export const getGithubRepos = username => async dispatch => {
     try {
-        const res = await axios.get(`/api/profile/github/${username}`)
+        const res = await axios.get(`${API}/api/profile/github/${username}`)
         dispatch({
             type: GET_REPOS,
             payload: res.data
@@ -85,7 +87,7 @@ export const createProfile = (formData, navigate, edit=false) => async dispatch 
             }
         }
 
-        const res = await axios.post('/api/profile', formData, config)
+        const res = await axios.post(`${API}/api/profile`, formData, config)
 
         dispatch({
             type: GET_PROFILE,
@@ -119,7 +121,7 @@ export const addExperience = (formData, navigate) => async dispatch =>{
             }
         }
 
-        const res = await axios.put('/api/profile/experience', formData, config)
+        const res = await axios.put(`${API}/api/profile/experience`, formData, config)
 
         dispatch({
             type: UPDATE_PROFILE,
@@ -151,7 +153,7 @@ export const addEducation = (formData, navigate) => async dispatch =>{
             }
         }
 
-        const res = await axios.put('/api/profile/education', formData, config)
+        const res = await axios.put(`${API}/api/profile/education`, formData, config)
 
         dispatch({
             type: UPDATE_PROFILE,
@@ -177,7 +179,7 @@ export const addEducation = (formData, navigate) => async dispatch =>{
 //Delete Experience
 export const deleteExperience = id => async dispatch => {
     try {
-        const res = await axios.delete(`/api/profile/experience/${id}`)
+        const res = await axios.delete(`${API}/api/profile/experience/${id}`)
 
         dispatch({
             type: UPDATE_PROFILE,
@@ -197,7 +199,7 @@ export const deleteExperience = id => async dispatch => {
 //Delete Education
 export const deleteEducation = id => async dispatch => {
     try {
-        const res = await axios.delete(`/api/profile/education/${id}`)
+        const res = await axios.delete(`${API}/api/profile/education/${id}`)
 
         dispatch({
             type: UPDATE_PROFILE,
@@ -219,7 +221,7 @@ export const deleteEducation = id => async dispatch => {
 export const deleteAccount = id => async dispatch => {
     if(window.confirm('Are you sure? This can NOT be undone!')){
         try {
-            await axios.delete('/api/profile')
+            await axios.delete(`${API}/api/profile`)
 
             dispatch({ type: CLEAR_PROFILE })
             dispatch({ type: ACCOUNT_DELETED })
